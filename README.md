@@ -1,4 +1,4 @@
-# PassaroUrbano
+# Pássaro Urbano ![Ícone do pássaro Urbano](src/assets/ico/favicon-32x32.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
 
