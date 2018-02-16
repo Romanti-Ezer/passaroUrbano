@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OfertasService } from '../ofertas.service'
 import { Oferta } from '../shared/oferta.model'
+import { CurrencyPipe } from '@angular/common'
 
 @Component({
   selector: 'app-home',
@@ -24,10 +25,4 @@ export class HomeComponent implements OnInit {
         ( param: any) => console.log( param )
       )
     }
-  public formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 2,
-  });
-
 }
