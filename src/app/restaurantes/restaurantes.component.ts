@@ -18,7 +18,7 @@ export class RestaurantesComponent implements OnInit {
   ngOnInit() {
     this.ofertasService.getOfertasPorCategoria('restaurante')
       .then((ofertas: Oferta[]) => this.ofertas = ofertas)
-      .catch(() => console.log('Erro ao tentar acessar ofertas'))
+      .catch((response: any) => console.log('Erro ao tentar acessar ofertas: ', response))
   }
 
 }

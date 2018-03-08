@@ -10,24 +10,39 @@ export class OfertasService {
     constructor(private http: Http) { }
 
     public getOfertas(): Promise<Oferta[]> {
-        return this.http.get(`${URL_API}?destaque=true`)
+        return this.http.get(`${URL_API}/ofertas?destaque=true`)
             .toPromise()
             .then((resposta: any) => resposta.json())
+            .catch((resposta: any) => console.log('Erro ao buscar oferta: ', resposta))
     }
 
     public getOfertasPorCategoria(categoria: string): Promise<Oferta[]> {
-        return this.http.get(`${URL_API}?categoria=${categoria}`)
+        return this.http.get(`${URL_API}/ofertas?categoria=${categoria}`)
             .toPromise()
             .then((resposta: any) => resposta.json())
+            .catch((resposta: any) => console.log('Erro ao buscar oferta: ', resposta))
     }
 
     public getOferta(id: number): Promise<Oferta> {
-        return this.http.get(`${URL_API}/${id}`)
+        return this.http.get(`${URL_API}/ofertas/${id}`)
             .toPromise()
             .then((resposta: any) => resposta.json())
-            .catch(() => console.log('Erro ao buscar oferta'))
+            .catch((resposta: any) => console.log('Erro ao buscar oferta: ', resposta))
     }
 
+    public getComoUsarOfertaPorId(id: number): Promise<string> {
+        return this.http.get(`${URL_API}/como-usar?id=${id}`)
+            .toPromise()
+            .then((resposta: any) => resposta.json()[0].descricao )
+            .catch((resposta: any) => console.log('Erro ao buscar como usar: ', resposta))
+    }
+
+    public getOndeFicaPorId(id: number): Promise<string> {
+        return this.http.get(`${URL_API}/onde-fica?id=${id}`)
+            .toPromise()
+            .then((resposta: any) => resposta.json()[0].descricao)
+            .catch((resposta: any) => console.log('Erro ao buscar onde fica: ', resposta))
+    }
 
     /*public getOfertas2(): Promise<Oferta[]> {
         return new Promise((resolve, reject) => {
