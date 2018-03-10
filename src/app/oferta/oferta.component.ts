@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Oferta } from '../shared/oferta.model'
 import { OfertasService } from '../ofertas.service'
 import { ActivatedRoute } from '@angular/router'
@@ -6,6 +6,7 @@ import { Params } from '@angular/router/src/shared'
 import { CurrencyPipe } from '@angular/common'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
+import { Subscription } from 'rxjs/Subscription'
 import 'rxjs/Rx'
 
 @Component({
@@ -14,7 +15,10 @@ import 'rxjs/Rx'
   styleUrls: ['./oferta.component.css'],
   providers: [ OfertasService ]
 })
-export class OfertaComponent implements OnInit {
+export class OfertaComponent implements OnInit, OnDestroy {
+
+  public tempoObservableSubscription: Subscription
+  public meuObservableSubscription: Subscription  
 
   public oferta: Oferta
   public idOferta: number
@@ -41,24 +45,33 @@ export class OfertaComponent implements OnInit {
       })
       .catch((param: any) => console.log(param))
 
-    /*
+  
     let tempo = Observable.interval(2000)
 
-    tempo.subscribe((intervalo: number) => {
+    this.tempoObservableSubscription = tempo.subscribe((intervalo: number) => {
       console.log(intervalo)
     })
-    */
+    
 
     // Observable (observável)
     let meuObservableTeste = Observable.create((observer: Observer<string>) => {
       observer.next('Primeiro evento da stream')
       observer.next('Segundo evento da stream')
+      observer.complete()
+      observer.next('Vrayy')
     })
 
     // Observable (observador)
-    meuObservableTeste.subscribe(
-      (resultado: any) => console.log(resultado)
+    this.meuObservableSubscription = meuObservableTeste.subscribe(
+      (resultado: any) => console.log(resultado),
+      (erro: string) => console.log(erro),
+      () => console.log('A stream de eventos foi finalizada')
     )
+  }
+
+  ngOnDestroy() {
+    this.meuObservableSubscription.unsubscribe()
+    this.tempoObservableSubscription.unsubscribe()
   }
 
 }
