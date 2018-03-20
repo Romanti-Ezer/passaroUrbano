@@ -3,17 +3,24 @@ import { Oferta } from '../shared/oferta.model'
 import { OfertasService } from '../ofertas.service'
 import { ActivatedRoute } from '@angular/router'
 import { Params } from '@angular/router/src/shared'
+
 import { CurrencyPipe } from '@angular/common'
+import { LOCALE_ID } from '@angular/core'
+import { registerLocaleData } from '@angular/common'
+import localePt from '@angular/common/locales/pt'
+
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { Subscription } from 'rxjs/Subscription'
 import 'rxjs/Rx'
 
+registerLocaleData(localePt, 'pt-BR');
+
 @Component({
   selector: 'app-oferta',
   templateUrl: './oferta.component.html',
   styleUrls: ['./oferta.component.css'],
-  providers: [ OfertasService ]
+  providers: [ OfertasService, { provide: LOCALE_ID, useValue: 'pt-BR'} ]
 })
 export class OfertaComponent implements OnInit, OnDestroy {
 
