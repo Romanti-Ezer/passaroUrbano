@@ -11,6 +11,10 @@
           <input type="text" class="form-control mt-3 mb-3" placeholder="Pesquise por ofertas..."
           #termoDaBusca
           (keyup)="pesquisa(termoDaBusca.value)">
+
+          <ul class="list-group" style="position: absolute; z-index: 4">
+            <li class="list-group-item" *ngFor="let oferta of ofertas2">{{ oferta.titulo }}</li>
+          </ul>
         </div>
         <div class="col-md-2">
             <a a href="#"><img src="/assets/carrinho.png" /></a>
